@@ -71,9 +71,9 @@ public class RoomTester {
 		//create a polymorphic aray list that can take Employee and Guest
 		ArrayList<Person> peopleInHotel = new ArrayList<Person>();
 		Guest homer = new Guest(new Name("Mr", "Homer", "Simpson"), "087 1234567", "homer.simpson@atu.ie", new CreditCard(1111222233334444L, new Date(31,12,2027), 111));
-		Employee emp1 = new Employee(new Name("Ms", "Faye", "McGuire"),"087 1234567", new Date(12,10,2020), new Date(12,10,2020),24000.0);
+		//Employee emp1 = new Employee(new Name("Ms", "Faye", "McGuire"),"087 1234567", new Date(12,10,2020), new Date(12,10,2020),24000.0);
 		peopleInHotel.add(homer);
-		peopleInHotel.add(emp1);
+		//peopleInHotel.add(emp1);
 	}
 
 }

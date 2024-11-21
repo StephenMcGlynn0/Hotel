@@ -52,7 +52,7 @@ public class Guest extends Person {
 	}
 	
 	@Override
-	public void read() {
+	public boolean read() {
 		Scanner scanner = new Scanner(System.in);
 		super.read();
 		System.out.print("Enter Email Address: ");
@@ -60,6 +60,7 @@ public class Guest extends Person {
 		card.read();
 		
 		scanner.close();
+		return true;
 		
 	}
 	

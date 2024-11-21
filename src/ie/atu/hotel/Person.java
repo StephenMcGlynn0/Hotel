@@ -1,13 +1,14 @@
 package ie.atu.hotel;
 
+import java.io.Serializable;
 import java.util.Scanner;
 
-public abstract class Person {
+public abstract class Person implements Serializable {
 	protected Name name;
 	protected String phoneNumber;
 	
 	public Person() {
-		this.name=null;
+		this.name = new Name();
 		this.phoneNumber="";
 	}
 	
@@ -47,7 +48,7 @@ public abstract class Person {
 			   compare.phoneNumber.equals(this.phoneNumber);
 	}
 	
-	public void read() {
+	public boolean read() {
 		Scanner scanner = new Scanner(System.in);
 		System.out.print("Enter Title: ");
 		String title = scanner.nextLine();
@@ -58,6 +59,7 @@ public abstract class Person {
 		name = new Name(title, fName, sName);
 		System.out.print("Enter Phone Number: ");
 		this.phoneNumber = scanner.next();
+		return true;
 	
 	}
 	

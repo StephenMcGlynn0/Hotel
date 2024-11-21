@@ -10,9 +10,9 @@ public class EmployeeTester {
 
 	public static void main(String[] args) {
 		ArrayList<Employee> employees = new ArrayList<Employee>();
-		Employee emp1 = new Employee(new Name("Ms", "Faye", "McGuire"),"087 1234567", new Date(12,10,2020), new Date(12,10,2020),24000.0);
-		Employee emp2 = new Employee(new Name("Mr", "Ben", "Carson"),"086 1234567", new Date(20,10,1980), new Date(10,10,2012),42000.0);
-		Employee emp3 = new Employee(new Name("Ms", "Mark", "Logan"),"087 9876543", new Date(1,1,1994), new Date(2,8,208),28000.0);
+		Employee emp1 = new Employee(new Name("Ms", "Faye", "McGuire"),"087 1234567",24000.0);
+		Employee emp2 = new Employee(new Name("Mr", "Ben", "Carson"),"086 1234567", 42000.0);
+		Employee emp3 = new Employee(new Name("Ms", "Mark", "Logan"),"087 9876543",28000.0);
 		//Employee madraMor = new Employee();
 		//madraMor.read();
 		
