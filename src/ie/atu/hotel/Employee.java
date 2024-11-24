@@ -35,6 +35,29 @@ public class Employee extends Person implements Payable, Serializable {
     	Employee.employeeNumber = num;
     }
 
+    //made this static method to decrement the employeeNumber when someone presses cancel when adding employees
+    public static void decrementEmployeeNumber(){
+        Employee.employeeNumber--;
+    }
+
+    public static boolean checkEmployeeDetails(String[] stringChecks, String salary){
+        //Created this method to make sure the fields arent left blank when editing or adding new employees
+        for (String s: stringChecks) {
+            if(s.trim().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Invalid details, employee not added/edited", "ERROR", JOptionPane.ERROR_MESSAGE);
+                return false;
+            }
+        }
+        try{
+            Double.parseDouble(salary);
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "Invalid details, employee not added/edited", "ERROR", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        return true;
+
+    }
+
     //	public Date getDateOfBirth() {
     //		return dateOfBirth;
     //	}
@@ -97,13 +120,14 @@ public class Employee extends Person implements Payable, Serializable {
 
     // read() method using JOptionPane
     public boolean read() {
-        JTextField txtFirstName = new JTextField();
-        JTextField txtSurname = new JTextField();
-        JTextField txtPhoneNumber = new JTextField();
+        //added default values to read so when we edit it starts with the current values
+        JTextField txtFirstName = new JTextField(this.getName().getFirstName());
+        JTextField txtSurname = new JTextField(this.getName().getSurname());
+        JTextField txtPhoneNumber = new JTextField(this.getPhoneNumber());
         JTextField employeeNum = new JTextField(number + "");
         employeeNum.setEditable(false);
         JComboBox title = new JComboBox(new String[] {"Mr","Mrs","Miss"});
-        JTextField salary = new JTextField();
+        JTextField salary = new JTextField(this.getSalary() + "");
 
         Object[] message = {
             "Employee Number:",
@@ -123,7 +147,7 @@ public class Employee extends Person implements Payable, Serializable {
         dialog.setAlwaysOnTop(true);
         int option = JOptionPane.showConfirmDialog(dialog, message,
             "ENTER EMPLOYEE DETAILS", JOptionPane.OK_CANCEL_OPTION);
-        if (option == JOptionPane.OK_OPTION) {
+        if (option == JOptionPane.OK_OPTION && checkEmployeeDetails(new String[]{txtFirstName.getText(), txtSurname.getText(), txtPhoneNumber.getText()}, salary.getText())) {
             this.name.setFirstName(txtFirstName.getText());
             this.name.setSurname(txtSurname.getText());
             this.name.setTitle(title.getSelectedItem().toString());
