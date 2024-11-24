@@ -9,7 +9,6 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 import javax.swing.JOptionPane;
 
@@ -52,6 +51,9 @@ public class EmployeeSerializer implements Serializable {
 		 if(employee.read() == true) {
 			 // And add it to the employees ArrayList
 			 employees.add(employee);	
+		 }else{
+			 //adding this because employeeNumber static was still incrementing after being cancelled
+			 Employee.decrementEmployeeNumber();
 		 }
 	}
 
@@ -89,9 +91,16 @@ public class EmployeeSerializer implements Serializable {
 	//         : And returns it, or null if not found             //   
 	////////////////////////////////////////////////////////////////	
 	public Employee view(){
-		Scanner scan = new Scanner(System.in);
-		System.out.print("Enter num of employee youre looking for: ");
-		int identifier = scan.nextInt();
+		String numberString = JOptionPane.showInputDialog("Enter Employee Number To Find:");
+		if(numberString == null)//checking if the dialog was cancelled
+			return null;
+		int identifier;
+		try {
+			identifier = Integer.parseInt(numberString);
+		} catch (NumberFormatException e) {
+			System.out.println("Invalid Employee Number Entered.");
+			return null;
+		}
 		for(Employee e:employees) {
 			if(e.getNumber() == identifier) {
 				System.out.print(e);
@@ -111,8 +120,10 @@ public class EmployeeSerializer implements Serializable {
 	// Purpose : Deletes the required Employee record from employees //
 	///////////////////////////////////////////////////////////////////	
 	public void delete(){
-		 // TODO - Write the code for delete()
-	    JOptionPane.showMessageDialog(null, "delete() method must be coded!", "NOT IMPLEMENTED", JOptionPane.INFORMATION_MESSAGE);			
+		Employee empToBeDeleted = this.view();
+		if(empToBeDeleted != null) {
+			employees.remove(empToBeDeleted);
+		}
 	}
 
 	///////////////////////////////////////////////////////////////
@@ -122,8 +133,10 @@ public class EmployeeSerializer implements Serializable {
 	// Purpose : Edits the required Employee record in employees //
 	///////////////////////////////////////////////////////////////	
 	public void edit(){
-		 // TODO - Write the code for edit()
-	    JOptionPane.showMessageDialog(null, "edit() method must be coded!", "NOT IMPLEMENTED", JOptionPane.INFORMATION_MESSAGE);			
+		 Employee empToBeEdited = this.view();
+		 if(empToBeEdited != null) {
+			 empToBeEdited.read();
+		 }
 	}
 	
 	// This method will serialize the employees ArrayList when called, 
